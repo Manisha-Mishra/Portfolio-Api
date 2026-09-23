@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import quotes, history
+from app.api.routes import auth, funds, fx, history, quotes
 
 app = FastAPI(
     title="Stock Profile Tracker API",
@@ -21,6 +21,9 @@ app.add_middleware(
 # Register routers — this is what actually "plugs in" quotes.py and history.py
 app.include_router(quotes.router, prefix="/api", tags=["quotes"])
 app.include_router(history.router, prefix="/api", tags=["history"])
+app.include_router(funds.router, prefix="/api", tags=["funds"])
+app.include_router(auth.router, prefix="/api", tags=["auth"])
+app.include_router(fx.router, prefix="/api", tags=["fx"])
 
 
 @app.get("/")
